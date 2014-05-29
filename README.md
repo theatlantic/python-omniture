@@ -41,7 +41,7 @@ You can very easily access some basic information about your account and your
 reporting suites:
 
     print analytics.suites
-    suite = analytics.suites['guardiangu-network']
+    suite = account.suites['guardiangu-network']
     print suite
     print len(suite.evars)
     print suite.segments
@@ -56,7 +56,7 @@ human-readable name or their id. So for example `suite.segments['pageviews']` an
 
 Here's a quick example: 
 
-    report = network.report \
+    report = suite.report \
         .over_time(metrics=['pageviews', 'visitors']) \
         .range('2013-05-01', '2013-05-31', granularity='month') \
         .sync()
@@ -85,7 +85,7 @@ This module is still in beta and you should expect some things not to work. In p
 
 In these cases, it can be useful to use the lower-level access this module provides through `mysuite.report.set` -- you can pass set either a key and value, a dictionary with key-value pairs or you can pass keyword arguments. These will then be added to the raw query. You can always check what the raw query is going to be with the `build` method on queries.
 
-    query = network.report \
+    query = suite.report \
         .over_time(metrics=['pageviews', 'visitors']) \
         .set(dateGranularity='month')
         .set({'segmentId': 'social'})
@@ -102,7 +102,7 @@ Here's an example:
 
     queue = []
     for segment in segments:
-        report = network.report \
+        report = suite.report \
             .range('2013-05-01', '2013-05-31', granularity='day') \
             .over_time(metrics=['pageviews']) \
             .filter(segment=segment)
